@@ -22,21 +22,22 @@ spacebar-counter start
 ```
 - This will count your spacebar presses for the current day.
 - The count resets automatically at midnight.
+- **A file named `spacebar_stats.json` will be created in the directory where you run this command.**
+- This file stores your daily spacebar stats (date, count, first and last press times).
 
 Generate a dashboard:
 ```bash
 spacebar-counter dashboard
 ```
-- This creates `spacebar_dashboard.html` in your project directory.
+- This creates `spacebar_dashboard.html` in the same directory.
 - Open it in your browser to see your daily spacebar stats as a dot plot.
 
 ## Data Storage
 
-- Your stats are stored in a local file called `spacebar_stats.json` in the same directory as the tool.
-- For each day, it stores:
-  - The date
-  - The total count
-  - The first and last time you pressed the spacebar that day
+- **`spacebar_stats.json`**: Stores your daily stats. Created/updated when you run `start`.
+- **`spacebar_dashboard.html`**: The dashboard file. Created/updated when you run `dashboard`.
+- Both files are created in the directory where you run the commands.
+- Each user has their own local files; your stats are private and not shared.
 
 ## Requirements
 
