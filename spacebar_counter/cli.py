@@ -7,7 +7,14 @@ import plotly.graph_objs as go
 
 app = typer.Typer()
 
-STATS_FILE = os.path.join(os.path.dirname(__file__), '..', 'spacebar_stats.json')
+def get_data_dir():
+    home = os.path.expanduser("~")
+    data_dir = os.path.join(home, "spacebar_counter")
+    os.makedirs(data_dir, exist_ok=True)
+    return data_dir
+
+STATS_FILE = os.path.join(get_data_dir(), 'spacebar_stats.json')
+DASHBOARD_FILE = os.path.join(get_data_dir(), 'spacebar_dashboard.html')
 
 @app.command()
 def start():
@@ -30,7 +37,6 @@ def start():
         nonlocal count, first_press, last_press, stats, today
         current_day = get_today()
         if current_day != today:
-            # Store the previous day's info (already in stats)
             today = current_day
             count = 0
             first_press = None
@@ -71,9 +77,8 @@ def dashboard():
     hover_text = [f"First: {f}<br>Last: {l}" for f, l in zip(firsts, lasts)]
     fig = go.Figure([go.Scatter(x=days, y=counts, mode='markers', marker=dict(size=12), text=hover_text, hoverinfo='text+name', name='Spacebar Count')])
     fig.update_layout(title="Spacebar Hits Per Day", xaxis_title="Date", yaxis_title="Hits")
-    output_file = os.path.join(os.path.dirname(__file__), '..', 'spacebar_dashboard.html')
-    fig.write_html(output_file)
-    print(f"Dashboard saved to {output_file}")
+    fig.write_html(DASHBOARD_FILE)
+    print(f"Dashboard saved to {DASHBOARD_FILE}")
 
 if __name__ == "__main__":
     app() 

@@ -11,7 +11,7 @@ pip install spacebar-counter
 
 Or install the latest version from GitHub:
 ```bash
-pip install git+https://github.com/<your-username>/<your-repo>.git
+pip install git+https://github.com/kalashb/spacebar-counter.git
 ```
 
 ## Usage
