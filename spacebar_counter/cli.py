@@ -16,6 +16,24 @@ def get_data_dir():
 STATS_FILE = os.path.join(get_data_dir(), 'spacebar_stats.json')
 DASHBOARD_FILE = os.path.join(get_data_dir(), 'spacebar_dashboard.html')
 
+@app.callback()
+def main(ctx: typer.Context):
+    if ctx.invoked_subcommand is None:
+        typer.echo("""
+Welcome to spacebar-counter!
+
+Commands:
+  start      Start tracking your spacebar presses for today.
+  dashboard  Generate a dashboard of your daily spacebar stats.
+
+Usage:
+  spacebar-counter start
+  spacebar-counter dashboard
+
+Your stats and dashboard will be saved in ~/spacebar_counter/
+""")
+        raise typer.Exit()
+
 @app.command()
 def start():
     def get_today():
